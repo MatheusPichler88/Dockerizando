@@ -36,21 +36,31 @@ Precisamos saber alguns comandos:
 Continuando o Dockerfile que começamos na aula passada.
 
 Utilizaremos o FROM para dizer o tipo de imagem base que vamos trabalhar, no caso como vamos usar um .jar precisamos de uma imagem com Java.
+
 LABEL é os metadados, tipo a empresa que ta disponibilizando o arquivo, no meu caso sou eu.
+
 WORKDIR é o diretorio que vamos trabalhar dentro do container.
+
 COPY é como vamos fazer a copia da nossa aplicação pra dentro da imagem.
+
 ENTRYPOINT é qual o tipo de ação que iremos realizar quando o container iniciar, no caso rodar o .jar.
+
 EXPOSE (opcional) serve pra expor a porta que a aplicação vai rodar.
 
 ## Passo a passo:
 
 1- **FROM** - Fomos no dockerhub.com, na barra de pesquisa colocamos "java" e apareceram as imagens oficiais. Escolhi o eclipse temurin, copiei o nome e coloquei no FROM. Depois usando : coloquei a versao do java que to usando no projeto (21).
+
 2- **LABEL** - passei a empresa (no caso sou eu), entao ficou: LABEL maintainer="contato@java10x.dev" (pode ser meu email)
+
 3- **WORKDIR** - passei o diretorio que vou trabalhar dentro do container:
+
 4- **COPY** - aqui copiamos o .jar que ta na pasta target pra dentro da imagem. Primeiro a gente coloca o caminho do arquivo de origem (no nosso pc) e depois o destino (dentro do container). No destino podemos ate renomear o arquivo:
 (peguei o arquivo da pasta target e joguei na pasta /app do container com o nome aula-docker.jar)
+
 5- **ENTRYPOINT** - aqui defino o comando que vai rodar quando o container iniciar. No caso vou mandar o java executar o .jar que copiei:
 (o ENTRYPOINT vai fazer o container rodar esse comando assim que iniciar)
+
 6- **EXPOSE** (opcional) - se quiser expor a porta que a aplicação vai rodar, no spring normalmente é a 8080:
 
 
@@ -61,3 +71,30 @@ LABEL maintainer="contato@java10x.dev"
 WORKDIR /app
 COPY target/DockerAulaJava10x-0.0.1-SNAPSHOT.jar /app/aula-docker.jar
 ENTRYPOINT ["java", "-jar", "aula-docker.jar"]
+```
+
+# Aula 03 - Anotações
+
+Hoje aprendemos na prática como fazer o build da imagem Docker e verificar se ela foi criada.
+
+## Comandos que usamos:
+
+### 1. docker build docker build
+Esse comando pega nosso Dockerfile e transforma em uma imagem de verdade.
+
+```bash
+docker build -t imagem-spring-aula:0.0.1-RELEASE .
+```
+Explicando cada parte:
+docker build = comando pra criar a imagem
+
+-t = tag (nome que vamos dar pra imagem)
+
+imagem-spring-aula:0.0.1-RELEASE = nome da imagem + versão
+
+. = o contexto (pasta atual onde tá o Dockerfile)
+### 2.  docker images
+   Depois do build, usamos esse comando pra ver se a imagem foi criada e listar todas as imagens que temos no computador.
+   ```bash
+docker images
+```
