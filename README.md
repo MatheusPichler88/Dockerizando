@@ -1,3 +1,50 @@
+# Introdução ao Docker
+
+## O que é Docker?
+
+Docker é uma ferramenta que permite empacotar sua aplicação dentro de um "container" (tipo uma caixinha) com tudo que ela precisa pra funcionar: código, bibliotecas, configurações, etc.
+
+Pensa assim: antes do Docker, o programador falava "ué, na minha máquina funciona". Com o Docker, se funciona no container, vai funcionar em qualquer lugar.
+
+## Pra que usar Docker?
+
+- **Não precisar instalar tudo na máquina** - ao invés de instalar Java, MySQL, direto no seu PC, você roda tudo em containers separados
+- **Garantir que o ambiente é igual** - o que roda na sua máquina vai rodar igual no servidor
+- **Isolar aplicações** - cada app roda no seu container sem interferir nas outras
+- **Facilitar deploy** - sobe a imagem no servidor e pronto
+
+## Benefícios que eu entendi até agora:
+
+| Antes do Docker | Com Docker |
+|-----------------|------------|
+| Instalar Java na máquina | Java vem na imagem |
+| "Na minha máquina funciona" | Roda igual em qualquer lugar |
+| Configurar ambiente manualmente | Tudo configurado no Dockerfile |
+| Aplicações competindo por versões | Cada container isolado |
+| Deploy complexo | Sobe imagem e já era |
+
+## Conceitos principais:
+
+- **Imagem** = é o "molde" ou "ISO" da sua aplicação (tipo um pacote fechado)
+- **Container** = é a imagem rodando (aplicação de fato funcionando)
+- **Dockerfile** = a receita de como criar a imagem
+- **Docker Hub** = site onde ficam guardadas as imagens (tipo GitHub mas de imagens)
+
+
+## O que dá pra fazer:
+
+- Pegar imagens prontas (ex: MySQL, Redis, Java)
+- Criar suas próprias imagens (ex: sua aplicação Spring)
+- Subir suas imagens pro Docker Hub
+- Rodar containers em qualquer lugar
+
+## Resumindo:
+
+Docker resolve aquele problema chato de "funciona aqui mas não funciona lá". Com ele, sua aplicação vira um pacote portátil que roda em qualquer lugar que tenha Docker instalado.
+
+---
+
+
 # Fluxograma:
 
 <img width="1170" height="637" alt="dockerEstrutura" src="https://github.com/user-attachments/assets/b99df632-64fc-444e-95ab-ae4758095e0f" />
@@ -98,3 +145,36 @@ imagem-spring-aula:0.0.1-RELEASE = nome da imagem + versão
    ```bash
 docker images
 ```
+
+# Aula 04 - Anotações
+
+Hoje aprendemos a rodar o container e verificar se ele está funcionando.
+
+## Comandos que usamos:
+
+### 1. docker run
+Esse comando pega a imagem que criamos e transforma em um container rodando.
+
+```bash
+docker run -d -p 8080:8080 imagem-spring-aula:0.0.1-RELEASE
+```
+Explicando cada parte:
+
+docker run = comando pra criar e iniciar um container
+
+-d = modo "detach" (roda em background, não prende o terminal)
+
+-p 8080:8080 = mapeia a porta 8080 do container pra porta 8080 do meu PC
+
+imagem-spring-aula:0.0.1-RELEASE = nome da imagem que vamos usar
+
+O que acontece: Agora nossa aplicação Spring tá rodando dentro do container e acessível em http://localhost:8080
+
+### 2. docker ps
+   Esse comando mostra os containers que estão rodando no momento.
+### 3. docker ps -a
+   Esse comando mostra todos os containers, inclusive os que já pararam.
+### 4. docker stop abc123...(Hash da aplicação)
+O container continua existindo, mas não está mais rodando. Dá pra ver ele parado com docker ps -a.
+### 5. docker rm abc123...
+Depois de rodar docker rm, o container é apagado de vez. Não dá mais pra iniciar ele de novo.
