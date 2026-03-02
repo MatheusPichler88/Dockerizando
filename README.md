@@ -28,3 +28,32 @@ Precisamos saber alguns comandos:
 - **DockerHub** = lugar na nuvem pra guardar as imagens
 
 # Aula 02 - Anotações
+
+Continuando o Dockerfile que começamos na aula passada.
+
+Utilizaremos o FROM para dizer o tipo de imagem base que vamos trabalhar, no caso como vamos usar um .jar precisamos de uma imagem com Java.
+LABEL é os metadados, tipo a empresa que ta disponibilizando o arquivo, no meu caso sou eu.
+WORKDIR é o diretorio que vamos trabalhar dentro do container.
+COPY é como vamos fazer a copia da nossa aplicação pra dentro da imagem.
+ENTRYPOINT é qual o tipo de ação que iremos realizar quando o container iniciar, no caso rodar o .jar.
+EXPOSE (opcional) serve pra expor a porta que a aplicação vai rodar.
+
+## Passo a passo:
+
+1- **FROM** - Fomos no dockerhub.com, na barra de pesquisa colocamos "java" e apareceram as imagens oficiais. Escolhi o eclipse temurin, copiei o nome e coloquei no FROM. Depois usando : coloquei a versao do java que to usando no projeto (21).
+2- **LABEL** - passei a empresa (no caso sou eu), entao ficou: LABEL maintainer="contato@java10x.dev" (pode ser meu email)
+3- **WORKDIR** - passei o diretorio que vou trabalhar dentro do container:
+4- **COPY** - aqui copiamos o .jar que ta na pasta target pra dentro da imagem. Primeiro a gente coloca o caminho do arquivo de origem (no nosso pc) e depois o destino (dentro do container). No destino podemos ate renomear o arquivo:
+(peguei o arquivo da pasta target e joguei na pasta /app do container com o nome aula-docker.jar)
+5- **ENTRYPOINT** - aqui defino o comando que vai rodar quando o container iniciar. No caso vou mandar o java executar o .jar que copiei:
+(o ENTRYPOINT vai fazer o container rodar esse comando assim que iniciar)
+6- **EXPOSE** (opcional) - se quiser expor a porta que a aplicação vai rodar, no spring normalmente é a 8080:
+
+
+## Dockerfile completo até agora:
+```dockerfile
+FROM eclipse-temurin:21
+LABEL maintainer="contato@java10x.dev"
+WORKDIR /app
+COPY target/DockerAulaJava10x-0.0.1-SNAPSHOT.jar /app/aula-docker.jar
+ENTRYPOINT ["java", "-jar", "aula-docker.jar"]
