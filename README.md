@@ -1,4 +1,8 @@
-# Aula 01 - Anotações
+# Fluxograma:
+
+<img width="1170" height="637" alt="dockerEstrutura" src="https://github.com/user-attachments/assets/b99df632-64fc-444e-95ab-ae4758095e0f" />
+
+# Aula 01 - Anotações 
 
 Primeiro precisamos criar uma aplicação com Spring, na primeira aula criaremos uma aplicação simples.
 
