@@ -178,3 +178,34 @@ O que acontece: Agora nossa aplicação Spring tá rodando dentro do container e
 O container continua existindo, mas não está mais rodando. Dá pra ver ele parado com docker ps -a.
 ### 5. docker rm abc123...
 Depois de rodar docker rm, o container é apagado de vez. Não dá mais pra iniciar ele de novo.
+
+# Aula 05 - Anotações
+
+Hoje aprendemos como enviar nossa imagem pro Docker Hub
+## Comandos novos:
+
+### 1. docker login
+Esse comando conecta seu terminal com sua conta do Docker Hub.
+
+```bash
+docker login -u (nomeUsuario)
+```
+### 2. docker tag
+Esse comando cria um "apelido" pra nossa imagem com o formato certo pro Docker Hub.
+
+```bash
+docker tag imagem-spring-aula:0.0.1-RELEASE matheuspichler/primeira-imagem-app:0.0.1-RELEASE
+```
+### 3. docker push
+Esse comando envia nossa imagem pro Docker Hub.
+```bash
+docker push matheuspichler/primeira-imagem-app:0.0.1-RELEASE
+```
+# Aula 06 - Anotações
+
+Hoje aprendemos a baixar imagens prontas do Docker Hub
+
+## Comandos novos:
+### 1. docker pull
+Esse comando baixa uma imagem do Docker Hub sem rodar ela ainda.
+
